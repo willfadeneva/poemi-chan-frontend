@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Poemi-chan's Poetry Playground</title>
+  <title>Poemi-chan's Rainbow Poetry</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,27 +16,93 @@
     
     body {
       font-family: 'Baloo 2', 'Comic Neue', cursive, sans-serif;
-      background-color: #fff5f7;
       text-align: center;
       padding: 1rem;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23ffd6e7" d="M30,10 Q50,0 70,10 Q90,20 90,40 Q90,60 70,70 Q50,80 30,70 Q10,60 10,40 Q10,20 30,10 Z"/></svg>'), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23d4f1ff" d="M20,20 L80,20 L90,50 L80,80 L20,80 L10,50 Z"/></svg>');
-      background-size: 80px 80px, 60px 60px;
-      background-position: 10% 20%, 90% 80%;
-      background-repeat: no-repeat;
       min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Rainbow Background */
+    .rainbow-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+      background: linear-gradient(
+        to bottom,
+        #ff0000 0%,
+        #ff7f00 14%,
+        #ffff00 28%,
+        #00ff00 42%,
+        #0000ff 56%,
+        #4b0082 70%,
+        #9400d3 84%,
+        #ff1493 100%
+      );
+      background-size: 100% 400%;
+      animation: rainbow 15s linear infinite;
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 0% 100%; }
+    }
+
+    .cloud {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      z-index: -1;
+    }
+
+    .cloud:nth-child(1) {
+      width: 150px;
+      height: 60px;
+      top: 10%;
+      left: 5%;
+      animation: float 20s infinite linear;
+    }
+
+    .cloud:nth-child(2) {
+      width: 200px;
+      height: 80px;
+      top: 25%;
+      right: 8%;
+      animation: float 25s infinite linear reverse;
+    }
+
+    .cloud:nth-child(3) {
+      width: 180px;
+      height: 70px;
+      bottom: 15%;
+      left: 10%;
+      animation: float 30s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(50px) translateY(-20px); }
+      50% { transform: translateX(100px) translateY(0); }
+      75% { transform: translateX(50px) translateY(20px); }
+      100% { transform: translateX(0) translateY(0); }
     }
 
     .container {
       max-width: 800px;
       margin: 0 auto;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.9);
       padding: 2rem;
       border-radius: 20px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.1);
       position: relative;
       overflow: hidden;
       border: 6px solid var(--color-pink);
+      backdrop-filter: blur(2px);
     }
 
     .container::before {
@@ -51,6 +117,7 @@
       border-radius: 25px;
       animation: rainbowBorder 8s linear infinite;
       background-size: 400% 400%;
+      opacity: 0.7;
     }
 
     @keyframes rainbowBorder {
@@ -94,7 +161,7 @@
     }
 
     .input-area {
-      background-color: #f0f9ff;
+      background-color: rgba(240, 249, 255, 0.7);
       padding: 1.5rem;
       border-radius: 15px;
       margin-bottom: 2rem;
@@ -125,6 +192,7 @@
       font-family: 'Comic Neue', cursive;
       outline: none;
       transition: all 0.3s;
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
     input:focus {
@@ -177,7 +245,7 @@
 
     #poem-output {
       white-space: pre-wrap;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.8);
       padding: 1.5rem;
       margin-top: 1rem;
       border-radius: 15px;
@@ -210,7 +278,7 @@
       position: absolute;
       font-size: 2rem;
       opacity: 0.7;
-      z-index: -1;
+      z-index: 1;
     }
 
     .teddy-bear {
@@ -261,34 +329,48 @@
       .teddy-bear, .stacked-books {
         display: none;
       }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h1::after {
+        right: -30px;
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="rainbow-bg"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  
   <div class="container">
     <div class="decoration" style="top: 10%; left: 5%;">🧸</div>
     <div class="decoration" style="top: 20%; right: 8%;">🎨</div>
     <div class="decoration" style="bottom: 15%; right: 10%;">✏️</div>
     
-    <h1 class="floating">Poemi-chan's Poetry Playground</h1>
-    <p class="subtitle">Where your ideas become magical poems! ✨</p>
+    <h1 class="floating">Poemi-chan's Rainbow Poetry</h1>
+    <p class="subtitle">Where colorful ideas become magical poems! 🌈✨</p>
     
     <div class="input-area">
-      <p>What should your poem be about?</p>
-      <input type="text" id="topic-input" placeholder="e.g. rainbows, dinosaurs, or friendship" />
+      <p>What colorful thing should your poem be about?</p>
+      <input type="text" id="topic-input" placeholder="e.g. rainbow unicorns, space adventure, or happy feelings" />
       <br />
       <button onclick="generatePoem()">
-        <span>Create My Poem!</span>
+        <span>Make My Rainbow Poem!</span>
       </button>
     </div>
     
-    <div id="poem-output">Your special poem will appear here! 🌟</div>
+    <div id="poem-output">Your colorful poem will appear here! Watch the magic happen... 🌟</div>
     
     <div class="teddy-bear">🧸</div>
     <div class="stacked-books">📚</div>
     
     <div class="footer">
-      Made with ❤️ for kids who love to imagine!
+      Made with ❤️ and all the colors of the rainbow!
     </div>
   </div>
 
@@ -298,12 +380,12 @@
       const outputDiv = document.getElementById('poem-output');
       
       if (!topic) {
-        outputDiv.innerHTML = "Please enter something for your poem!<br>How about 'unicorns' or 'space adventure'? 🚀";
+        outputDiv.innerHTML = "Please enter something colorful for your poem!<br>How about 'rainbow unicorns' or 'dancing stars'? 🌟";
         return;
       }
       
       // Create a cute typing animation
-      outputDiv.innerHTML = "Poemi-chan is thinking hard... <span class='typing'></span>";
+      outputDiv.innerHTML = "Poemi-chan is painting with words... <span class='typing'></span>";
       const typingEl = outputDiv.querySelector('.typing');
       let dots = 0;
       const typingInterval = setInterval(() => {
@@ -312,7 +394,7 @@
       }, 300);
       
       // Add some cute emoji decorations that change while waiting
-      const emojis = ['✏️', '📝', '📖', '🎨', '✨', '🌈'];
+      const emojis = ['✏️', '📝', '📖', '🎨', '✨', '🌈', '🖌️', '🎈'];
       let emojiIndex = 0;
       const emojiInterval = setInterval(() => {
         emojiIndex = (emojiIndex + 1) % emojis.length;
@@ -335,35 +417,38 @@
           const formattedPoem = data.poem.replace(/\n/g, '<br>')
             .replace(/^/g, '🌟 ')
             .replace(/\n/g, '\n🌟 ');
-          outputDiv.innerHTML = formattedPoem + "<div style='text-align:center;margin-top:1rem;'>🎉 <em>Ta-da! Your poem is ready!</em> 🎉</div>";
+          outputDiv.innerHTML = formattedPoem + "<div style='text-align:center;margin-top:1rem;'>🌈 <em>Ta-da! Your rainbow poem is ready!</em> 🌈</div>";
           
-          // Add confetti effect
+          // Add rainbow confetti effect
           setTimeout(() => {
-            confettiEffect();
+            rainbowConfetti();
           }, 500);
         } else {
-          outputDiv.innerHTML = "Oops! Poemi-chan got a little stuck.<br>Try again with a different topic! 💫";
+          outputDiv.innerHTML = "Oops! Poemi-chan's rainbow got a little cloudy.<br>Try again with a different colorful idea! 🌦️";
         }
       } catch (err) {
         clearInterval(typingInterval);
         clearInterval(emojiInterval);
-        outputDiv.innerHTML = "Oh no! Poemi-chan can't reach the poetry clouds right now.<br>Try again later! ☁️";
+        outputDiv.innerHTML = "Oh no! Poemi-chan can't find the rainbow right now.<br>Try again later when the sun comes out! ☁️";
       }
     }
     
-    function confettiEffect() {
-      const confettiEmojis = ['✨', '🌟', '🎉', '🌈', '🍭', '🎈'];
+    function rainbowConfetti() {
+      const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
       const container = document.querySelector('.container');
       
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
-        confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
-        confetti.style.position = 'absolute';
-        confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.top = -50 + 'px';
-        confetti.style.opacity = Math.random() * 0.5 + 0.5;
-        confetti.style.animation = `fall-${Math.floor(Math.random() * 3) + 1} ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.position = 'fixed';
+        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = -20 + 'px';
+        confetti.style.opacity = Math.random() * 0.7 + 0.3;
+        confetti.style.borderRadius = '50%';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.style.animation = `rainbow-fall ${Math.random() * 3 + 2}s linear forwards`;
         
         document.body.appendChild(confetti);
         
@@ -376,14 +461,11 @@
       // Add CSS for falling animation
       const style = document.createElement('style');
       style.textContent = `
-        @keyframes fall-1 {
-          to { transform: translateY(calc(100vh + 50px)) rotate(360deg); }
-        }
-        @keyframes fall-2 {
-          to { transform: translate(calc(${Math.random() * 100 - 50}px), calc(100vh + 50px)) rotate(180deg); }
-        }
-        @keyframes fall-3 {
-          to { transform: translate(calc(${Math.random() * 100 - 50}px), calc(100vh + 50px)) rotate(-360deg); }
+        @keyframes rainbow-fall {
+          to { 
+            transform: translateY(calc(100vh + 20px)) rotate(${Math.random() * 360}deg);
+            opacity: 0;
+          }
         }
       `;
       document.head.appendChild(style);
@@ -392,12 +474,12 @@
     // Make the input focus cute
     document.getElementById('topic-input').addEventListener('focus', function() {
       this.style.backgroundColor = '#fff9c4';
-      this.placeholder = "What's your amazing idea?";
+      this.placeholder = "What's your colorful idea?";
     });
     
     document.getElementById('topic-input').addEventListener('blur', function() {
-      this.style.backgroundColor = '';
-      this.placeholder = "e.g. rainbows, dinosaurs, or friendship";
+      this.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+      this.placeholder = "e.g. rainbow unicorns, space adventure, or happy feelings";
     });
   </script>
 </body>
