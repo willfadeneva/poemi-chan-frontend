@@ -5,6 +5,11 @@ import os
 import requests
 
 app = FastAPI()
+const response = await fetch('https://poemi-chan-bot.onrender.com/generate_poem', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ topic })
+});
 
 # Allow your frontend origin or * for testing
 origins = [
